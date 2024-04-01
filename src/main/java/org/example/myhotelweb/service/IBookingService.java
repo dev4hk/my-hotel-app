@@ -1,4 +1,4 @@
 package org.example.myhotelweb.service;
 
-public interface IBookedRoomService {
+public interface IBookingService {
 }

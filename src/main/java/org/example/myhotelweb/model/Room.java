@@ -3,7 +3,6 @@ package org.example.myhotelweb.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.RandomStringUtils;
 
@@ -11,7 +10,6 @@ import java.math.BigDecimal;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 @Getter
@@ -34,13 +32,13 @@ public class Room {
     private Blob photo;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<BookedRoom> bookings;
+    private List<Booking> bookings;
 
     public Room() {
         this.bookings = new ArrayList<>();
     }
 
-    public void addBooking(BookedRoom booking) {
+    public void addBooking(Booking booking) {
 //        if(bookings == null) {
 //            bookings = new ArrayList<>();
 //        }

@@ -1,4 +1,4 @@
 package org.example.myhotelweb.repository;
 
-public interface BookedRoomRepository {
+public interface Booking {
 }

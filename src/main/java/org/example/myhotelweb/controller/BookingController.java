@@ -1,4 +1,4 @@
 package org.example.myhotelweb.controller;
 
-public class BookedRoomController {
+public class BookingController {
 }

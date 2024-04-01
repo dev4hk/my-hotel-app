@@ -1,4 +1,4 @@
 package org.example.myhotelweb.service;
 
-public class BookedRoomServiceImpl {
+public class BookingServiceImpl {
 }
