@@ -3,6 +3,7 @@ package org.example.myhotelweb.controller;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.example.myhotelweb.exception.PhotoRetrievalException;
+import org.example.myhotelweb.exception.ResourceNotFoundException;
 import org.example.myhotelweb.model.Booking;
 import org.example.myhotelweb.model.Room;
 import org.example.myhotelweb.response.BookingResponse;
@@ -21,6 +22,7 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RequestMapping("/rooms")
@@ -63,6 +65,15 @@ public class RoomController {
             }
         }
         return ResponseEntity.ok(roomResponses);
+    }
+
+    @GetMapping("/room/{roomId}")
+    public ResponseEntity<Optional<RoomResponse>> getRoomById(@PathVariable Long roomId) {
+        Optional<Room> room = roomService.getRoomById(roomId);
+        return room.map(r -> {
+            RoomResponse response = getRoomResponse(r);
+            return ResponseEntity.ok(Optional.of(response));
+        }).orElseThrow(() -> new ResourceNotFoundException("Room Not found"));
     }
 
     @PutMapping("/update/{roomId}")
