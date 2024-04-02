@@ -58,6 +58,12 @@ public class BookingController {
         return ResponseEntity.ok(bookingResponses);
     }
 
+    @DeleteMapping("/booking/{bookingId}/delete")
+    public ResponseEntity<Void> cancelBooking(@PathVariable Long bookingId){
+        bookingService.cancelBooking(bookingId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     private BookingResponse getBookingResponse(Booking booking) {
         Room room = roomService.getRoomById(booking.getRoom().getId()).get();
         RoomResponse roomResponse = new RoomResponse(

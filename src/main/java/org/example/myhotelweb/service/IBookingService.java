@@ -11,4 +11,6 @@ public interface IBookingService {
     Booking findByBookingConfirmationCode(String confirmationCode);
     List<Booking> findAllByGuestEmail(String email);
     List<Booking> getBookingsByUserEmail(String email);
+
+    void cancelBooking(Long bookingId);
 }
