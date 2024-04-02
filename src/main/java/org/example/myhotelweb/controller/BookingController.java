@@ -1,12 +1,14 @@
 package org.example.myhotelweb.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.myhotelweb.exception.ResourceNotFoundException;
 import org.example.myhotelweb.model.Booking;
 import org.example.myhotelweb.model.Room;
 import org.example.myhotelweb.response.BookingResponse;
 import org.example.myhotelweb.response.RoomResponse;
 import org.example.myhotelweb.service.IBookingService;
 import org.example.myhotelweb.service.IRoomService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,11 +33,18 @@ public class BookingController {
     public ResponseEntity<List<BookingResponse>> getAllBookings() {
         List<Booking> bookings = bookingService.getAllBookings();
         List<BookingResponse> bookingResponses = new ArrayList<>();
-        for(Booking booking : bookings) {
+        for (Booking booking : bookings) {
             BookingResponse response = getBookingResponse(booking);
             bookingResponses.add(response);
         }
         return ResponseEntity.ok(bookingResponses);
+    }
+
+    @GetMapping("/confirmation/{confirmationCode}")
+    public ResponseEntity<?> getBookingByConfirmationCode(@PathVariable String confirmationCode) {
+        Booking booking = bookingService.findByBookingConfirmationCode(confirmationCode);
+        BookingResponse bookingResponse = getBookingResponse(booking);
+        return ResponseEntity.ok(bookingResponse);
     }
 
     private BookingResponse getBookingResponse(Booking booking) {
