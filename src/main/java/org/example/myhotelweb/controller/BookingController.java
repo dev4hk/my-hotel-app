@@ -47,6 +47,17 @@ public class BookingController {
         return ResponseEntity.ok(bookingResponse);
     }
 
+    @GetMapping("/user/{email}/bookings")
+    public ResponseEntity<List<BookingResponse>> getBookingsByUserEmail(@PathVariable String email) {
+        List<Booking> bookings = bookingService.getBookingsByUserEmail(email);
+        List<BookingResponse> bookingResponses = new ArrayList<>();
+        for (Booking booking : bookings) {
+            BookingResponse bookingResponse = getBookingResponse(booking);
+            bookingResponses.add(bookingResponse);
+        }
+        return ResponseEntity.ok(bookingResponses);
+    }
+
     private BookingResponse getBookingResponse(Booking booking) {
         Room room = roomService.getRoomById(booking.getRoom().getId()).get();
         RoomResponse roomResponse = new RoomResponse(
