@@ -1,6 +1,7 @@
 package org.example.myhotelweb.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.myhotelweb.exception.InternalServerException;
 import org.example.myhotelweb.exception.ResourceNotFoundException;
 import org.example.myhotelweb.model.Room;
 import org.example.myhotelweb.repository.RoomRepository;
@@ -68,5 +69,20 @@ public class RoomServiceImpl implements IRoomService{
         if(room.isPresent()) {
             roomRepository.deleteById(roomId);
         }
+    }
+
+    @Override
+    public Room updateRoom(Long roomId, String roomType, BigDecimal roomPrice, byte[] photoBytes) {
+        Room room = roomRepository.findById(roomId).get();
+        if (roomType != null) room.setRoomType(roomType);
+        if (roomPrice != null) room.setRoomPrice(roomPrice);
+        if (photoBytes != null && photoBytes.length > 0) {
+            try {
+                room.setPhoto(new SerialBlob(photoBytes));
+            } catch (SQLException ex) {
+                throw new InternalServerException("Fail updating room");
+            }
+        }
+        return roomRepository.save(room);
     }
 }
