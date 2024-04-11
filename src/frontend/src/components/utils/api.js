@@ -27,3 +27,43 @@ export async function getRoomTypes() {
     throw new Error("Error fetching room types");
   }
 }
+
+export async function getAllRooms() {
+  try {
+    const response = await api.get("/rooms");
+    return response.data;
+  } catch (error) {
+    throw new Error("Error fetching rooms");
+  }
+}
+
+export async function deleteRoom(roomId) {
+  try {
+    const result = await api.delete(`/rooms/delete/room/${roomId}`);
+    return result.data;
+  } catch (error) {
+    throw new Error(`Error deleting room ${error.message}`);
+  }
+}
+
+export async function getRoomById(roomId) {
+  try {
+    const result = await api.get(`/rooms/room/${roomId}`);
+    return result.data;
+  } catch (error) {
+    throw new Error(`Error fetching room ${error.message}`);
+  }
+}
+
+export async function updateRoom(roomId, roomData) {
+  try {
+    const formData = new FormData();
+    formData.append("roomType", roomData.roomType);
+    formData.append("roomPrice", roomData.roomPrice);
+    formData.append("photo", roomData.photo);
+    const response = await api.put(`/rooms/update/${roomId}`, formData);
+    return response;
+  } catch (error) {
+    throw new Error(`Error updating room ${error.message}`);
+  }
+}
