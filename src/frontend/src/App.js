@@ -1,7 +1,12 @@
 import "./App.css";
+import AddRoom from "./components/room/AddRoom";
 
 function App() {
-  return <div>Hello</div>;
+  return (
+    <>
+      <AddRoom />
+    </>
+  );
 }
 
 export default App;
