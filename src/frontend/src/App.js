@@ -1,4 +1,3 @@
-import "./App.css";
 import Home from "./components/home/Home";
 import AddRoom from "./components/room/AddRoom";
 import EditRoom from "./components/room/EditRoom";
