@@ -4,9 +4,10 @@ import AddRoom from "./components/room/AddRoom";
 import EditRoom from "./components/room/EditRoom";
 import ExistingRooms from "./components/room/ExistingRooms";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import NavBar from "./layout/Navbar";
-import Footer from "./layout/Footer";
+import NavBar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
 import RoomListing from "./components/room/RoomListing";
+import Admin from "./components/admin/Admin";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/existing-rooms" element={<ExistingRooms />} />
             <Route path="/add-room" element={<AddRoom />} />
             <Route path="/browse-all-rooms" element={<RoomListing />} />
+            <Route path="/admin" element={<Admin />} />
             <Route></Route>
           </Routes>
           <Footer />
