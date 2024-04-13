@@ -21,7 +21,6 @@ export async function addRoom(photo, roomType, roomPrice) {
 export async function getRoomTypes() {
   try {
     const response = await api.get("/rooms/room/types");
-    console.log(response);
     return response.data;
   } catch (error) {
     throw new Error("Error fetching room types");
@@ -87,6 +86,7 @@ export async function bookRoom(roomId, booking) {
 export async function getAllBookings() {
   try {
     const result = await api.get("/bookings/all-bookings");
+    console.log(result);
     return result.data;
   } catch (error) {
     throw new Error(`Error fetching bookings : ${error.message}`);
