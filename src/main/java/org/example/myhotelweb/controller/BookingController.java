@@ -1,7 +1,7 @@
 package org.example.myhotelweb.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.myhotelweb.exception.ResourceNotFoundException;
+import org.example.myhotelweb.exception.InvalidBookingRequestException;
 import org.example.myhotelweb.model.Booking;
 import org.example.myhotelweb.model.Room;
 import org.example.myhotelweb.response.BookingResponse;
@@ -25,8 +25,12 @@ public class BookingController {
 
     @PostMapping("/room/{roomId}/booking")
     public ResponseEntity<?> saveBooking(@PathVariable Long roomId, @RequestBody Booking request) {
-        String confirmationCode = bookingService.saveBooking(roomId, request);
-        return ResponseEntity.ok(confirmationCode);
+        try {
+            String confirmationCode = bookingService.saveBooking(roomId, request);
+            return ResponseEntity.ok("Room booked successfully, Your booking confirmation code is: " + confirmationCode);
+        } catch (InvalidBookingRequestException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping("/all-bookings")
@@ -59,7 +63,7 @@ public class BookingController {
     }
 
     @DeleteMapping("/booking/{bookingId}/delete")
-    public ResponseEntity<Void> cancelBooking(@PathVariable Long bookingId){
+    public ResponseEntity<Void> cancelBooking(@PathVariable Long bookingId) {
         bookingService.cancelBooking(bookingId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
