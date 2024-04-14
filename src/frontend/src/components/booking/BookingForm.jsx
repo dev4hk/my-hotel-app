@@ -90,7 +90,6 @@ const BookingForm = () => {
       setIsSubmitted(true);
       navigate("/booking-success", { state: { message: confirmationCode } });
     } catch (error) {
-      console.log(error.message);
       const errorMessage = error.message;
       navigate("/booking-success", { state: { error: errorMessage } });
     }
