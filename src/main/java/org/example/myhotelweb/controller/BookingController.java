@@ -2,6 +2,7 @@ package org.example.myhotelweb.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.myhotelweb.exception.InvalidBookingRequestException;
+import org.example.myhotelweb.exception.ResourceNotFoundException;
 import org.example.myhotelweb.model.Booking;
 import org.example.myhotelweb.model.Room;
 import org.example.myhotelweb.response.BookingResponse;
@@ -46,9 +47,13 @@ public class BookingController {
 
     @GetMapping("/confirmation/{confirmationCode}")
     public ResponseEntity<?> getBookingByConfirmationCode(@PathVariable String confirmationCode) {
-        Booking booking = bookingService.findByBookingByConfirmationCode(confirmationCode);
-        BookingResponse bookingResponse = getBookingResponse(booking);
-        return ResponseEntity.ok(bookingResponse);
+        try{
+            Booking booking = bookingService.findByBookingByConfirmationCode(confirmationCode);
+            BookingResponse bookingResponse = getBookingResponse(booking);
+            return ResponseEntity.ok(bookingResponse);
+        }catch (ResourceNotFoundException ex){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
     }
 
     @GetMapping("/user/{email}/bookings")
