@@ -18,7 +18,9 @@ export async function addRoom(photo, roomType, roomPrice) {
   formData.append("roomType", roomType);
   formData.append("roomPrice", roomPrice);
 
-  const response = await api.post("/rooms/add/new-room", formData);
+  const response = await api.post("/rooms/add/new-room", formData, {
+    headers: getHeader(),
+  });
   if (response.status === 201) {
     return true;
   } else {
@@ -46,7 +48,9 @@ export async function getAllRooms() {
 
 export async function deleteRoom(roomId) {
   try {
-    const result = await api.delete(`/rooms/delete/room/${roomId}`);
+    const result = await api.delete(`/rooms/delete/room/${roomId}`, {
+      headers: getHeader(),
+    });
     return result.data;
   } catch (error) {
     throw new Error(`Error deleting room ${error.message}`);
@@ -68,7 +72,9 @@ export async function updateRoom(roomId, roomData) {
     formData.append("roomType", roomData.roomType);
     formData.append("roomPrice", roomData.roomPrice);
     formData.append("photo", roomData.photo);
-    const response = await api.put(`/rooms/update/${roomId}`, formData);
+    const response = await api.put(`/rooms/update/${roomId}`, formData, {
+      headers: getHeader(),
+    });
     return response;
   } catch (error) {
     throw new Error(`Error updating room ${error.message}`);
@@ -93,7 +99,9 @@ export async function bookRoom(roomId, booking) {
 
 export async function getAllBookings() {
   try {
-    const result = await api.get("/bookings/all-bookings");
+    const result = await api.get("/bookings/all-bookings", {
+      headers: getHeader(),
+    });
     return result.data;
   } catch (error) {
     throw new Error(`Error fetching bookings : ${error.message}`);
