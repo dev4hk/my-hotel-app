@@ -11,6 +11,7 @@ import org.example.myhotelweb.service.IBookingService;
 import org.example.myhotelweb.service.IRoomService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class BookingController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/all-bookings")
     public ResponseEntity<List<BookingResponse>> getAllBookings() {
         List<Booking> bookings = bookingService.getAllBookings();

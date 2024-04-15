@@ -13,6 +13,7 @@ import org.example.myhotelweb.service.IRoomService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,6 +34,7 @@ public class RoomController {
     private final IRoomService roomService;
     private final IBookingService bookingService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/add/new-room")
     public ResponseEntity<RoomResponse> addNewRoom(
             @RequestParam("photo") MultipartFile photo,
@@ -78,6 +80,7 @@ public class RoomController {
         }).orElseThrow(() -> new ResourceNotFoundException("Room Not found"));
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/update/{roomId}")
     public ResponseEntity<RoomResponse> updateRoom(
             @PathVariable Long roomId,
@@ -97,6 +100,7 @@ public class RoomController {
         return ResponseEntity.ok(roomResponse);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/delete/room/{roomId}")
     public ResponseEntity<Void> deleteRoom(@PathVariable Long roomId) {
         roomService.deleteRoom(roomId);
