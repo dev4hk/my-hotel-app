@@ -23,7 +23,7 @@ public class JwtUtils {
     private String jwtSecret;
 
     @Value("${auth.token.expirationInMilis}")
-    private String jwtExpirationMs;
+    private int jwtExpirationMs;
 
     public String generateJwtTokenForUser(Authentication authentication){
         HotelUserDetails userPrincipal = (HotelUserDetails) authentication.getPrincipal();
@@ -34,7 +34,7 @@ public class JwtUtils {
                 .setSubject(userPrincipal.getUsername())
                 .claim("roles", roles)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime()+Integer.parseInt(jwtExpirationMs)))
+                .setExpiration(new Date((new Date()).getTime()+jwtExpirationMs))
                 .signWith(key(), SignatureAlgorithm.HS256).compact();
     }
 
