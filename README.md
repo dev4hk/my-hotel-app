@@ -10,16 +10,15 @@ This project is for users to make reservation for hotel rooms
 
 ## Tech Stack
 
-- Spring Boot
-- Gradle
-- Spring Data JPA
-- Lombok
-- MySQL
-- Spring Security
-- JWT
-- React
-- Axios
-- Bootstrap
+![Static Badge](https://img.shields.io/badge/SpringBoot-blue)
+![Static Badge](https://img.shields.io/badge/SpringWeb-blue)
+![Static Badge](https://img.shields.io/badge/SpringSecurity-blue)
+![Static Badge](https://img.shields.io/badge/Gradle-blue)
+![Static Badge](https://img.shields.io/badge/JWT-blue)
+![Static Badge](https://img.shields.io/badge/SpringDataJPA-blue)
+![Static Badge](https://img.shields.io/badge/MySQL-blue)
+![Static Badge](https://img.shields.io/badge/React-blue)
+![Static Badge](https://img.shields.io/badge/Bootstrap-blue)
 
 ## Entity Relationship Diagram
 ![ERD](images/ERD.png)
